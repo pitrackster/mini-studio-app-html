@@ -2,39 +2,58 @@ import {bootstrap}    from 'angular2/platform/browser';
 import {Component, Input, OnInit} from 'angular2/core';
 
 @Component({
-  selector: 'env-comp',
-  templateUrl: './app/components/envelope/envelope.html',
-  directives: [
-  ]
+    selector: 'env-comp',
+    templateUrl: './app/components/envelope/envelope.html',
+    directives: [
+    ]
 })
 
+/*
+* Problem with value update ... the values are not numbers
+*/
 export class Envelope implements OnInit {
 
-  public attack:number; // seconds
-  public decay:number; // seconds after decay time sustain gain level will be applied
-  public sustain:number; // gain value (0 <= value <= 1)
-  public release:number; // seconds
+    private attack: number; // seconds
+    private decay: number; // seconds after decay time sustain gain level will be applied
+    private sustain: number; // gain value (0 <= value <= 1)
+    private release: number; // seconds
 
-  ngOnInit() {
-    this.attack = 0;
-    this.decay = 0;
-    this.sustain = 1;
-    this.release = 0;
-  }
+    ngOnInit() {
+        this.attack = 0;
+        this.decay = 0;
+        this.sustain = 1;
+        this.release = 0;
+    }
 
-  updateAttack($event){
-    this.attack = +this.attack;//Number($event.target.valueAsNumber);
-  }
+    updateAttack($event) {
+        this.attack = $event.target.valueAsNumber;
+    }
 
-  updateDecay($event){
-    this.decay = +this.decay;// Number($event.target.valueAsNumber);
-  }
+    getAttack(): number {
+        return Number(this.attack);
+    }
 
-  updateSustain($event){
-    this.sustain = +this.sustain;// Number($event.target.valueAsNumber);
-  }
-  updateRelease($event){
-    this.release = +this.release;// Number($event.target.valueAsNumber);
-  }
+    updateDecay($event) {
+        this.decay = $event.target.valueAsNumber;
+    }
+
+    getDecay(): number {
+        return Number(this.decay);
+    }
+
+    updateSustain($event) {
+        this.sustain = $event.target.valueAsNumber;
+    }
+
+    getSustain(): number {
+        return Number(this.sustain);
+    }
+
+    updateRelease($event) {
+        this.release = $event.target.valueAsNumber;
+    }
+    getRelease(): number {
+        return Number(this.release);
+    }
 
 }

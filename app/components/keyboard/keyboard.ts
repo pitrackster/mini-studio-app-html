@@ -86,13 +86,10 @@ export class Keyboard implements OnInit {
     }
 
     emitNoteOn(key: Key) {
-        console.log('note on');
-        console.log(key);
         this.noteOn.next(key);
     }
 
     emitNoteOff(key: Key) {
-        console.log('note off');
         this.noteOff.next(key);
     }
 
