@@ -23,18 +23,18 @@ export class Envelope implements OnInit {
   }
 
   updateAttack($event){
-    this.attack = $event.target.valueAsNumber;
+    this.attack = +this.attack;//Number($event.target.valueAsNumber);
   }
 
   updateDecay($event){
-    this.decay = $event.target.valueAsNumber;
+    this.decay = +this.decay;// Number($event.target.valueAsNumber);
   }
 
   updateSustain($event){
-    this.sustain = $event.target.valueAsNumber;
+    this.sustain = +this.sustain;// Number($event.target.valueAsNumber);
   }
   updateRelease($event){
-    this.release = $event.target.valueAsNumber;
+    this.release = +this.release;// Number($event.target.valueAsNumber);
   }
 
 }

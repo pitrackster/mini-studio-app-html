@@ -46,31 +46,34 @@ export class Oscillator implements OnInit {
   }
 
   updateWaveform($event) {
-    console.log('update waveform');
-    this.waveform = $event.target.valueAsNumber;
+    console.log('update waveform ' + this.id);
+    this.waveform = +this.waveform;//$event.target.valueAsNumber;
+    console.log(this.waveform);
   }
 
   updateTune($event){
     console.log('update tune');
-    this.detune = $event.target.valueAsNumber;
+    this.detune = +this.detune; //$event.target.valueAsNumber;
   }
 
   start(freq, volume, output:GainNode) {
-    console.log('start pressed');
+    console.log('start pressed ' + this.id);
     // create a new oscillator
     let osc = this.ac.createOscillator();
     let vca = this.ac.createGain();
     vca.connect(output);
     osc.frequency.value = freq;
-    osc.type = this.getWaveformFromNumber(this.waveform);
-    osc.detune.value = this.detune;
+    osc.type = this.getWaveformFromNumber(Number(this.waveform));
+    osc.detune.value = Number(this.detune);
     osc.start();
+    console.log('osc ' + this.id + ' ENV');
+    console.log(this.ENV);
     // Silence oscillator gain
     vca.gain.setValueAtTime(0, this.ac.currentTime);
     // ATTACK
-    vca.gain.linearRampToValueAtTime(volume, this.ac.currentTime + this.ENV.attack);
+    vca.gain.linearRampToValueAtTime(volume, this.ac.currentTime + Number(this.ENV.attack));
     // SUSTAIN
-    vca.gain.linearRampToValueAtTime(volume * this.ENV.sustain, this.ac.currentTime + this.ENV.attack + this.ENV.decay);
+    vca.gain.linearRampToValueAtTime(volume * Number(this.ENV.sustain), this.ac.currentTime + Number(this.ENV.attack) + Number(this.ENV.decay));
     // connect
     osc.connect(vca);
 
@@ -86,12 +89,12 @@ export class Oscillator implements OnInit {
       let vca = voice.vca;
       let osc = voice.osc;
       // Clear previous envelope values
-      //vca.gain.cancelScheduledValues(this.ac.currentTime);
+      // vca.gain.cancelScheduledValues(this.ac.currentTime);
       // set osc gain to sustain value
       //let gain = vca.gain.value;
       //vca.gain.setValueAtTime(gain * this.ENV.sustain, this.ac.currentTime);
       // RELEASE
-      vca.gain.linearRampToValueAtTime(0, this.ac.currentTime + this.ENV.release);
+      vca.gain.linearRampToValueAtTime(0, this.ac.currentTime + Number(this.ENV.release));
       // Terminate after release
       window.setTimeout(function() {
         // Stop oscillator
