@@ -1,0 +1,6 @@
+.vertical-slider-sm {
+  -webkit-appearance: slider-vertical;
+  width: 8px;
+  height: 55px;
+  padding: 0 5px;
+}

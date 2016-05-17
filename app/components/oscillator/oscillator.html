@@ -1,0 +1,44 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>OSC-{{id}}</h4>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-6 text-center">
+                  type
+              </div>
+              <div class="col-md-6 text-center">
+                  detune
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-md-6 text-center">
+                  <input type="range" orient="vertical" class="vertical-slider-sm" (change)="updateWaveform($event)" title="waveform (sine, square, sawtooth, triangle)" [(ngModel)]="waveform" min="1" max="4" step="1"/>
+              </div>
+              <div class="col-md-6 text-center">
+                  <input type="range" orient="vertical" class="vertical-slider-sm" title="detune" (input)="updateTune($event)" [(ngModel)]="detune" min="0" max="200" step="1"/>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-md-6 text-center">
+                {{getWaveformFromNumber(waveform)}}
+              </div>
+              <div class="col-md-6 text-center">
+                {{detune}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <env-comp></env-comp>
+      </div>
+    </div>
+  </div>
+</div>

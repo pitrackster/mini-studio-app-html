@@ -1,0 +1,34 @@
+<div class="container-fluid">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="#" class="navbar-brand">mini-studio</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+      </div>
+    </div>
+  </nav>
+  <div class="row" style="margin-top:90px;">
+    <div class="col-md-12">
+      <!-- synth -->
+      <div class="row">
+        <div class="col-md-12">
+          <simple-synth-comp #SimpleSynth [ac]="ac"></simple-synth-comp>
+
+          <hr>
+          <!-- keys -->
+          <keyboard-comp (noteOn)="handleNoteOn($event)" (noteOff)="handleNoteOff($event)"></keyboard-comp>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,47 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3 text-center">
+                A
+            </div>
+            <div class="col-md-3 text-center">
+                D
+            </div>
+            <div class="col-md-3 text-center">
+                S
+            </div>
+            <div class="col-md-3 text-center">
+                R
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-3 text-center">
+                <input type="range" orient="vertical" (change)="updateAttack($event)" [(ngModel)]="attack" title="Attack" class="vertical-slider-sm" step="1" min="0" max="10">
+            </div>
+            <div class="col-md-3 text-center">
+                <input type="range" orient="vertical" (change)="updateDecay($event)" [(ngModel)]="decay" title="Decay {{decay}} (seconds)" class="vertical-slider-sm" step="1" min="0" max="5">
+            </div>
+            <div class="col-md-3 text-center">
+                <input type="range" orient="vertical" (change)="updateSustain($event)" [(ngModel)]="sustain" title="Sustain {{sustain}} (gain)" class="vertical-slider-sm" step="0.1" min="0" max="1">
+            </div>
+            <div class="col-md-3 text-center">
+                <input type="range" orient="vertical" (change)="updateRelease($event)" [(ngModel)]="release" title="Release {{release}} (seconds)" class="vertical-slider-sm" step="1" min="0" max="15">
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-3 text-center">
+                {{attack}}
+            </div>
+            <div class="col-md-3 text-center">
+                {{decay}}
+            </div>
+            <div class="col-md-3 text-center">
+                {{sustain}}
+            </div>
+            <div class="col-md-3 text-center">
+                {{release}}
+            </div>
+        </div>
+    </div>

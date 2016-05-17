@@ -1,0 +1,7 @@
+<div class="keyboard">
+    <div class="keys">
+        <template ngFor #key [ngForOf]="keys">
+            <div tabindex="1" ngClass="key {{key.cssClass}}" (keydown)="handleKeyDown($event, key)" (keyup)="handleKeyUp($event, key)" (mousedown)="emitNoteOn(key)" (mouseup)="emitNoteOff(key)">{{key.name}}</div>
+        </template>
+    </div>
+</div>

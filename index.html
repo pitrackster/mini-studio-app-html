@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+    <title>mini studio</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Load libraries -->
+    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>
+    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+    <script src="node_modules/angular2/bundles/router.dev.js"></script>
+
+    <script src="js/libs/jquery.min.js"></script>
+    <script src="js/libs/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Load Css -->
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet"></link>
+
+    <link href="css/app.css" rel="stylesheet"></link>
+
+    <!-- Configure SystemJS -->
+    <script>
+        System.config({
+            packages: {
+                app: {
+                    format: 'register',
+                    defaultExtension: 'js'
+                }
+            }
+        });
+        System.import ('app/main').then(null, console.error.bind(console));
+    </script>
+</head>
+<body>
+
+    <!-- APP WRAPPER -->
+    <main-app>
+        Loading...
+    </main-app>
+</body>
+</html>

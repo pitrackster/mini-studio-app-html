@@ -1,0 +1,41 @@
+.keyboard {
+  height: 150px;
+  padding: 1%;
+  flex-flow: column;
+  display: flex;
+  flex: 4;
+}
+.keys {
+  height: 100%;
+  display: flex;
+  flex: 8;
+  justify-content: center;
+}
+.key {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+}
+.key-black {
+  justify-content: center;
+  position: relative;
+  height: 70%;
+  background-color: #474747;
+  color: white;
+  width: 8%;
+  margin: 0 -7%
+}
+.key-black:active {
+  background-color: #222;
+}
+.key-white {
+  flex-flow: column;
+  justify-content: flex-end;
+  outline: 2px solid #474747;
+  color: #474747;
+  background-color: #ffffff;
+  padding-bottom: 1%;
+}
+.key-white:active {
+  background-color: #eee;
+}
