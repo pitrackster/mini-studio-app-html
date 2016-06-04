@@ -56,8 +56,8 @@ export class Oscillator implements OnInit {
     start(freq, volume, output: GainNode) {
         // create a new oscillator
         let osc = this.ac.createOscillator();
-        let vca = this.ac.createGain();
-        vca.connect(output);
+        let amp = this.ac.createGain();
+        amp.connect(output);
         osc.frequency.value = freq;
         osc.type = this.getWaveformFromNumber(Number(this.waveform));
         osc.detune.value = Number(this.detune);
@@ -67,36 +67,36 @@ export class Oscillator implements OnInit {
         console.log('osc ' + this.id + ' ENV');
         console.log(this.ENV);
         // Silence oscillator gain
-        vca.gain.setValueAtTime(0, this.ac.currentTime);
+        amp.gain.setValueAtTime(0, this.ac.currentTime);
         // ATTACK
-        vca.gain.linearRampToValueAtTime(volume, this.ac.currentTime + this.ENV.getAttack());
+        amp.gain.linearRampToValueAtTime(volume, this.ac.currentTime + this.ENV.getAttack());
         // SUSTAIN
-        vca.gain.linearRampToValueAtTime(volume * this.ENV.getSustain(), this.ac.currentTime + this.ENV.getAttack() + this.ENV.getDecay());
+        amp.gain.linearRampToValueAtTime(volume * this.ENV.getSustain(), this.ac.currentTime + this.ENV.getAttack() + this.ENV.getDecay());
         // connect
-        osc.connect(vca);
-        let voice = { osc: osc, vca: vca };
+        osc.connect(amp);
+        let voice = { osc: osc, amp: amp };
         this.voices[freq] = voice;
     }
 
     stop(freq, output: GainNode) {
         let voice = this.voices[freq];
         if (voice) {
-            let vca = voice.vca;
+            let amp = voice.amp;
             let osc = voice.osc;
             // Clear previous envelope values
-            vca.gain.cancelScheduledValues(this.ac.currentTime);
+            amp.gain.cancelScheduledValues(this.ac.currentTime);
             // RELEASE
-            vca.gain.linearRampToValueAtTime(0, this.ac.currentTime + Number(this.ENV.getRelease()));
+            amp.gain.linearRampToValueAtTime(0, this.ac.currentTime + Number(this.ENV.getRelease()));
             // Terminate after release
             window.setTimeout(function() {
                 // Stop oscillator
-                vca.gain.value = 0.0;
+                amp.gain.value = 0.0;
                 osc.stop(0);
-                osc.disconnect(vca);
+                osc.disconnect(amp);
                 osc = null;
-                vca.disconnect(output);
+                amp.disconnect(output);
                 delete this.voices[freq];
-                vca = null;
+                amp = null;
             }.bind(this), this.ENV.getRelease() * 1000);
         }
     }

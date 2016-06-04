@@ -1,56 +1,65 @@
 import {bootstrap}    from 'angular2/platform/browser';
-import {Component, Input, ViewChildren, ViewChild, OnInit, QueryList} from 'angular2/core';
-import {Oscillator} from '../oscillator/oscillator';
+import {Component, Input, ViewChildren, OnInit, QueryList} from 'angular2/core';
+import {OscillatorCtrl} from '../oscillator/oscillatorCtrl';
 import {Keyboard} from '../keyboard/keyboard';
+import {Voice} from '../../models/Voice';
 
 @Component({
     selector: 'simple-synth-comp',
     templateUrl: './app/components/simple-synth/simple-synth.html',
     directives: [
-        Oscillator,
+        OscillatorCtrl,
         Keyboard
     ]
 })
 
 export class SimpleSynth implements OnInit {
+
     @Input()
     ac: AudioContext;
 
-    @ViewChildren(Oscillator)
-    oscComponents: QueryList<Oscillator>;
+    @ViewChildren(OscillatorCtrl)
+    oscCtrls: QueryList<OscillatorCtrl>;
 
-    @ViewChild('osc1') OSC1: Oscillator;
-    @ViewChild('osc2') OSC2: Oscillator;
-
+    protected voices: Array<Voice>;
     protected master: GainNode;
 
     ngOnInit() {
+        this.voices = new Array<Voice>();
         // create master output vca / gain
         this.master = this.ac.createGain();
         this.master.connect(this.ac.destination);
-        this.master.gain.value = 0.5;
     }
 
-    ngAfterViewInit() {
-
+    noteOn(freq: number) {
+        let voice = new Voice(this.ac, this.master, this.oscCtrls.toArray());
+        voice.start(freq);
+        this.voices[freq]= voice;
     }
 
-    noteOn(note: any) {
-        let volume = 1 / 2;//this.oscComponents.toArray().length;
-        this.OSC1.start(note, volume, this.master);
-        this.OSC2.start(note, volume, this.master);
-        /*for (let osc of this.oscComponents.toArray()) {
-          console.log(osc);
-          osc.start(note, volume, this.master);
-        }*/
+    noteOff(freq:number) {
+
+        this.voices[freq].stop();
+        delete this.voices[freq];
     }
 
-    noteOff(freq) {
-        this.OSC1.stop(freq, this.master);
-        this.OSC2.stop(freq, this.master);
-        /*for (let osc of this.oscComponents.toArray()) {
-          console.log('simple synth note off stop osc ');
-          osc.stop(freq, this.master);
-        }*/
+    /*
+    noteOn(freq: number) {
+        let voice = new Voice(this.ac, this.master, this.oscCtrls.toArray());
+        voice.start(freq);
+        this.voices.push(voice);
     }
+
+    noteOff(frequency) {
+        let toKeep = new Array<Voice>();
+
+        for (var i = 0; i < this.voices.length; i++) {
+            if (Math.round(this.voices[i].frequency) === Math.round(frequency)) {
+                this.voices[i].stop();
+            } else {
+                toKeep.push(this.voices[i]);
+            }
+        }
+        this.voices = toKeep;
+    }*/
 }

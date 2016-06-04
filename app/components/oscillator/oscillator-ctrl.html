@@ -1,0 +1,100 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>OSC-{{id}}</h4>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-4 text-center">
+                  type
+              </div>
+              <div class="col-md-4 text-center">
+                  volume
+              </div>
+              <div class="col-md-4 text-center">
+                  detune
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-md-4 text-center">
+                  <input type="range" orient=vertical (change)="updateWaveform($event)" title="waveform (sine, square, sawtooth, triangle)" value={{waveform}} min="1" max="4" step="1"/>
+              </div>
+              <div class="col-md-4 text-center">
+                  <input type="range" orient=vertical title="volume" (input)="updateVolume($event)" [(ngModel)]="gain" min="0" max="1" step="0.1"/>
+              </div>
+              <div class="col-md-4 text-center">
+                  <input type="range" orient=vertical title="detune" (input)="updateTune($event)" [(ngModel)]="detune" min="0" max="200" step="1"/>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-md-4 text-center">
+                {{getWaveformFromNumber(waveform)}}
+              </div>
+              <div class="col-md-4 text-center">
+                {{gain}}
+              </div>
+              <div class="col-md-4 text-center">
+                {{detune}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3 text-center">
+                        A
+                    </div>
+                    <div class="col-md-3 text-center">
+                        D
+                    </div>
+                    <div class="col-md-3 text-center">
+                        S
+                    </div>
+                    <div class="col-md-3 text-center">
+                        R
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-3 text-center">
+                        <input type="range" (change)="updateAttack($event)" [(ngModel)]="attack" title="Attack" orient=vertical step="1" min="0" max="10">
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <input type="range" (change)="updateDecay($event)" [(ngModel)]="decay" title="Decay {{decay}} (seconds)" orient=vertical step="1" min="0" max="5">
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <input type="range" (change)="updateSustain($event)" [(ngModel)]="sustain" title="Sustain {{sustain}} (gain)" orient=vertical step="0.1" min="0" max="1">
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <input type="range" (change)="updateRelease($event)" [(ngModel)]="release" title="Release {{release}} (seconds)" orient=vertical step="1" min="0" max="15">
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-3 text-center">
+                        {{attack}}
+                    </div>
+                    <div class="col-md-3 text-center">
+                          {{decay}}
+                    </div>
+                    <div class="col-md-3 text-center">
+                          {{sustain}}
+                    </div>
+                    <div class="col-md-3 text-center">
+                        {{release}}
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
